@@ -13,14 +13,8 @@ import math
 import threading
 import pip
 import time
-def install(package):
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
-install('keyboard')
-sns.set() 
 import keyboard
+sns.set() 
 
 # add vehicles
 truck1 = Vehicle('ego', model='car_mod_2', license='TRACTOR', color='Green')
@@ -30,15 +24,6 @@ trailer2 = Vehicle('trailer2', model='boxutility')
 # trying to use function to make setup easier
 truck1, truck2, trailer1, trailer2 = setup.initiateVehicles(truck1, truck2, trailer1, trailer2)
 
-#manually connect the trailers and trucks in the beamNG game
-"""
-time.sleep(10)
-keyboard.press_and_release('c')  # Press 'a' key
-print("pressed c")
-time.sleep(10)
-keyboard.press_and_release('l')  # Press 'a' key
-time.sleep(10)
-"""
 def swerve(dir):
     truck1.control(dir, 1.0, None, None, None, -1)
     truck2.control(dir, 1.0, None, None, None, -1)
