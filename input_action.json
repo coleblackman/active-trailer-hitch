@@ -1,0 +1,5 @@
+{
+  "moveHitch"     :{"order":  1, "onChange":"custom_input.moveHitch(       VALUE)", "title": "ui.inputActions.car_mod.move.title", "desc": "ui.inputActions.car_mod.move.description", "isCentered": true },
+  "moveRight"   :{"order":  2, "onChange":"custom_input.moveHitch( 0.5 * VALUE)", "title": "ui.inputActions.car_mod.moveRight.title", "desc": "ui.inputActions.car_mod.moveRight.description" },
+  "moveLeft":{"order":  3, "onChange":"custom_input.moveHitch(-0.5 * VALUE)", "title": "ui.inputActions.car_mod.moveLeft.title", "desc": "ui.inputActions.car_mod.moveLeft.description" }
+}
