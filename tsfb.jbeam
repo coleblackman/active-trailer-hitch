@@ -1,0 +1,1 @@
+["tsfb8", 0.0, 2.76, 0.59, {"tag":"tow_hitch","couplerStrength":201000,"importElectrics": ["lowhighbeam", "reverse", "signal_L", "signal_R"],"importInputs": ["brake", "parkingbrake"]}],

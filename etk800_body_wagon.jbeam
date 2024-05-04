@@ -397,6 +397,8 @@
          ["p12l", 0.62, 1.85, 1.13],
          {"group":""},
     ],
+    // add hitch cup
+    ["tsfb8", 0.0, 2.76, 0.59, {"tag":"tow_hitch","couplerStrength":201000,"importElectrics": ["lowhighbeam", "reverse", "signal_L", "signal_R"],"importInputs": ["brake", "parkingbrake"]}],
     "beams": [
           ["id1:", "id2:"],
           {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1.0, "beamShortBound":1.0},

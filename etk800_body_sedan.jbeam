@@ -383,6 +383,14 @@
          ["p10r", -0.61, 1.456, 1.183],
          ["p10l", 0.61, 1.456, 1.183],
          {"group":""},
+
+        //--TOW HITCH--
+         {"nodeMaterial":"|NM_METAL"},
+         {"group":"pickup_towhitch"}
+         {"nodeWeight":5},
+         ["tw", 0.0, 2.76, 0.58,{"couplerTag":"tow_hitch","couplerStrength":2001000,"couplerRadius":1}],
+         ["tw2", 0.0, 2.76, 0.49],
+         {"group":""},
     ],
     "beams": [
           ["id1:", "id2:"],
