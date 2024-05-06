@@ -32,9 +32,9 @@ sns.set()
 def initiateVehicles(truck1, truck2, trailer1, trailer2, map="smallgrid"):
     # setup beamNG connection
     # for demo:
-    # beamng = BeamNGpy('localhost', 64256, './BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0', 'C:/Users/johnl/AppData/Local/BeamNG.drive/BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0/Bin64/BeamNG.tech.x64.exe', "/Users/johnl/AppData/Local/BeamNG.drive")
+    beamng = BeamNGpy('localhost', 64256, './BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0', 'C:/Users/johnl/AppData/Local/BeamNG.drive/BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0/Bin64/BeamNG.tech.x64.exe', "/Users/johnl/AppData/Local/BeamNG.drive")
     # on laptop:
-    beamng = BeamNGpy('localhost', 64256, './BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0', 'C:/Users/Student/AppData/Local/BeamNG.drive/BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0/Bin64/BeamNG.tech.x64.exe', "/Users/Student/AppData/Local/BeamNG.drive")
+    # beamng = BeamNGpy('localhost', 64256, './BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0', 'C:/Users/Student/AppData/Local/BeamNG.drive/BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0/Bin64/BeamNG.tech.x64.exe', "/Users/Student/AppData/Local/BeamNG.drive")
 
     beamng.open()
     vehicles = beamng.vehicles.get_available()['vehicles']
@@ -77,16 +77,16 @@ def initiateVehicles(truck1, truck2, trailer1, trailer2, map="smallgrid"):
     trailer4.sensors.attach('electrics', electrics)
     # create our scenario 
     scenario = Scenario(map, 'vehicle_state') # [543.2596940113453, -154.43656356395877, 146.73562960569507]
-    if map == "west_coast_usa" :                                        # [467.5345010551173, -106.53487611485252, 146.01402042508562]
-        scenario.scene                  # (5,0,0) for smallgrid
+    if map == "west_coast_usa" :              # [467.5345010551173, -106.53487611485252, 146.01402042508562]
+        scenario.scene                  
         scenario.add_vehicle(truck1, pos=(543.2596940113453, -158.43656356395877, 146.73562960569507), rot_quat=angle_to_quat((0, 0, 90))) #old z:118.675
         scenario.add_vehicle(truck2, pos=(543.2596940113453, -154.43656356395877, 146.73562960569507), rot_quat=angle_to_quat((0, 0, 90))) #old z:118.675
         scenario.add_vehicle(trailer1, pos=(549.2596940113453, -158.43656356395877, 146.73562960569507), rot_quat=angle_to_quat((0,0,90)))
         scenario.add_vehicle(trailer2, pos=(549.2596940113453, -154.43656356395877, 146.73562960569507), rot_quat=angle_to_quat((0,0,90)))
-        scenario.add_vehicle(truck4, pos=(467.5345010551173, -106.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0, 0, 90))) #old z:118.675
-        scenario.add_vehicle(truck3, pos=(467.5345010551173, -102.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0, 0, 90))) #old z:118.675
-        scenario.add_vehicle(trailer3, pos=(473.5345010551173, -106.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0,0,90)))
-        scenario.add_vehicle(trailer4, pos=(473.5345010551173, -102.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0,0,90)))
+        scenario.add_vehicle(truck4, pos=(473.5345010551173, -102.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0, 0, 270))) #old z:118.675
+        scenario.add_vehicle(truck3, pos=(473.5345010551173, -106.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0, 0, 270))) #old z:118.675
+        scenario.add_vehicle(trailer3, pos=(467.5345010551173, -102.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0,0,270)))
+        scenario.add_vehicle(trailer4, pos=(467.5345010551173, -106.53487611485252, 146.01402042508562), rot_quat=angle_to_quat((0,0,270)))
     
     else:
         scenario.scene                
@@ -102,6 +102,7 @@ def initiateVehicles(truck1, truck2, trailer1, trailer2, map="smallgrid"):
     print("loaded scenario")
     print("about to start")
     # keyboard.press_and_release('c')  # Press 'c' key
+    time.sleep(5)
     keyboard.press_and_release('l')  # Press 'l' key
     time.sleep(5)
     beamng.scenario.start() 
