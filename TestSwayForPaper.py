@@ -13,7 +13,7 @@ import math
 import threading
 import pip
 import time
-import angles
+import angle_math
 import keyboard
 sns.set() 
 
@@ -46,31 +46,37 @@ truck_y_list = []
 trailer_x_list = []
 trailer_y_list = []  
 
-wait_times = [0.5, 1.0, 1.5]
+wait_times = [1.0]# 0.5, 1.5]
 flipped = [0]# ,1]
-degrees = [10,15] # [0, 3, 5, 10, 15, 20, 120] # test degrees first
-lap_time = 120
+degrees = [120, 120, 120, 15, 15, 15] # [0, 3, 5, 10, 15, 20, 120] # test degrees first
+lap_time = 180
+
+file1 = open('withHitchTruck.txt', 'w')
+file2 = open('withHitchTrailer.txt', 'w')
+file3 = open('noHitchTruck.txt', 'w')
+file4 = open('noHitchTrailer.txt', 'w')       
+file5 = open('angles.txt', 'w')
+
 for stall in wait_times:
     for deg in degrees:
         for flip in flipped:
             truck1.ai.set_mode('span')
             name = ("deg:"+str(deg)+"wait_time"+str(stall)+"flip"+str(flip))
             before_loop_time = time.time()
-            angles = []
+            angle_math = []
             truck_x = []
             truck_y = []
             trailer_x = []
-            trailer_y = []            
-            file1 = open(name+'angles2.txt', 'w')
+            trailer_y = []     
             while(float(time.time()-before_loop_time) < float(lap_time)):
                 print(time.time()-before_loop_time)
                 truck1.sensors.poll()
                 trailer1.sensors.poll()
                 truck1_sensors = truck1.sensors
                 trailer1_sensors = trailer1.sensors
-                ang_between = angles.angle_between(truck1.state['dir'], trailer1.state['dir'] )
-                orientation_result = angles.orientation(truck1.state['dir'], trailer1.state['dir'])
-                angles.append(ang_between)
+                ang_between = angle_math.angle_between(truck1.state['dir'], trailer1.state['dir'] )
+                orientation_result = angle_math.orientation(truck1.state['dir'], trailer1.state['dir'])
+                angle_math.append(ang_between)
                 truck_x.append(float(truck1.state['pos'][0]))
                 truck_y.append(float(truck1.state['pos'][1]))
                 trailer_x.append(float(trailer1.state['pos'][0]))
@@ -103,7 +109,7 @@ for stall in wait_times:
                             aaa = 0 
                         truck1.set_lights(right_signal=False) 
             name_list.append(name)
-            angles_list.append(angles)
+            angles_list.append(angle_math)
             truck_x_list.append(truck_x)
             truck_y_list.append(truck_y)
             trailer_x_list.append(trailer_x)
