@@ -79,9 +79,11 @@ truck1.set_shift_mode('arcade')
 truck2.set_shift_mode('arcade')
 
 before_loop_time = time.time()
-while(float(time.time()-before_loop_time) < 120):
+while(float(time.time()-before_loop_time) < 180):
     poll_and_plot.pollVehicles(truck1, truck2, trailer1, trailer2)
 poll_and_plot.plot_poisitions(truck1, truck2, trailer1, trailer2)
+
+
 
 name_list  = []
 angles_list = []

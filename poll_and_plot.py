@@ -21,6 +21,11 @@ trailer2_positions = list()
 trailer2_directions = list()
 trailer2_wheel_speeds = list()
 
+file1 = open('withHitchTruck.txt', 'w')
+file2 = open('withHitchTrailer.txt', 'w')
+file3 = open('noHitchTruck.txt', 'w')
+file4 = open('noHitchTrailer.txt', 'w')
+
 def pollVehicles(truck1, truck2, trailer1, trailer2):
     truck1.sensors.poll()
     truck1_sensors = truck1.sensors
@@ -30,6 +35,12 @@ def pollVehicles(truck1, truck2, trailer1, trailer2):
     trailer1_sensors = trailer1.sensors
     trailer2.sensors.poll()
     trailer2_sensors = trailer2.sensors
+    
+    file1.write(str(truck1.state['pos'])+'\n')
+    file2.write(str(trailer1.state['pos'])+'\n')
+    file3.write(str(truck2.state['pos'])+'\n')
+    file4.write(str(trailer2.state['pos'])+'\n')
+
     truck1_positions.append(truck1.state['pos'])
     truck1_directions.append(truck1.state['dir'])
     truck1_wheel_speeds.append(truck1_sensors['electrics']['wheelspeed'])
@@ -61,6 +72,11 @@ def plot_poisitions(truck1, truck2, trailer1, trailer2):
     plt.axis('square')
     plt.show()
     plt.clf()
+    file1.close()
+    file2.close()
+    file3.close()
+    file4.close()
+
     """
     print("finished plots")
     print("lateral distance for truck with custom hitch")

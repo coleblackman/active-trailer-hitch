@@ -13,14 +13,9 @@ import math
 import threading
 import pip
 import time
-def install(package):
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
-install('keyboard')
-sns.set() 
+import angles
 import keyboard
+sns.set() 
 
 # add vehicles
 truck1 = Vehicle('ego', model='car_mod_2', license='TRACTOR', color='Green')
@@ -42,53 +37,6 @@ time.sleep(10)
 def swerve(dir):
     truck1.control(dir, 1.0, None, None, None, -1)
     truck2.control(dir, 1.0, None, None, None, -1)
-
-def angle_between(head, trailer, in_degrees=True):
-    """Calculate the angle between two vectors."""
-    # Calculate dot product
-    dot_product = sum(a*b for a, b in zip(head, trailer))
-    # Calculate magnitudes
-    magnitude_head = math.sqrt(sum(a**2 for a in head))
-    magnitude_trailer = math.sqrt(sum(b**2 for b in trailer))
-    # Calculate cosine of the angle
-    cosine_angle = dot_product / (magnitude_head * magnitude_trailer)
-    # Convert cosine to angle in radians
-    angle_rad = math.acos(cosine_angle)
-    if in_degrees:
-        # Convert radians to degrees
-        return math.degrees(angle_rad)
-    else:
-        return angle_rad
-    
-def heading_to_angle(heading_vector):
-    # Normalize the vector to make sure it has unit length
-    heading_vector = np.array(heading_vector)
-    heading_vector /= np.linalg.norm(heading_vector)
-    
-    # Compute the angle in radians using arctan2
-    angle_radians = np.arctan2(heading_vector[1], heading_vector[0])
-    
-    # Convert radians to degrees
-    angle_degrees = np.degrees(angle_radians)
-    
-    # Ensure angle is between 0 and 360 degrees
-    angle_degrees = angle_degrees % 360
-    
-    return angle_degrees
-
-def orientation(vector1, vector2):
-    # Compute the cross product
-    cross_product = vector1[0] * vector2[1] - vector1[1] * vector2[0]
-    
-    # Check the direction of the resulting vector
-    if cross_product > 0:
-        return 'left'
-    elif cross_product < 0:
-        return 'right'
-    else:
-        return 'collinear'
-
-import pickle
 
 
 name_list  = []
@@ -120,8 +68,8 @@ for stall in wait_times:
                 trailer1.sensors.poll()
                 truck1_sensors = truck1.sensors
                 trailer1_sensors = trailer1.sensors
-                ang_between = angle_between(truck1.state['dir'], trailer1.state['dir'] )
-                orientation_result = orientation(truck1.state['dir'], trailer1.state['dir'])
+                ang_between = angles.angle_between(truck1.state['dir'], trailer1.state['dir'] )
+                orientation_result = angles.orientation(truck1.state['dir'], trailer1.state['dir'])
                 angles.append(ang_between)
                 truck_x.append(float(truck1.state['pos'][0]))
                 truck_y.append(float(truck1.state['pos'][1]))
@@ -160,23 +108,6 @@ for stall in wait_times:
             truck_y_list.append(truck_y)
             trailer_x_list.append(trailer_x)
             trailer_y_list.append(trailer_y)
-            with open(name+"angles", 'wb') as fp:
-                pickle.dump(angles, fp)  
-            with open (name+"angles", 'rb') as fp:
-                itemlist = pickle.load(fp)
-                print(itemlist[1])
-            with open(name+"truck_x", 'wb') as fp:
-                pickle.dump(truck_x, fp)            
-            with open(name+"truck_y", 'wb') as fp:
-                pickle.dump(truck_y, fp)        
-            with open(name+"trailer_x", 'wb') as fp:
-                pickle.dump(trailer_x, fp)            
-            with open(name+"trailer_y", 'wb') as fp:
-                pickle.dump(trailer_y, fp) 
-            with open (name+"angles", 'rb') as fp:
-                itemlist = pickle.load(fp)
-            print(itemlist[1])
-            print("^angle")
             # truck1.teleport(pos=(5, 0, 0), rot_quat=angle_to_quat((0, 0, 0)))
             # trailer1.teleport(pos=(5, 6.25, 0), rot_quat=angle_to_quat((0, 0, 0)))
             # simulate key click
@@ -201,13 +132,6 @@ plt.show()
 plt.clf()
 
 
-
-aba = ["a", "b", "a"]
-with open('outfile', 'wb') as fp:
-    pickle.dump(aaa, fp)
-with open ('outfile', 'rb') as fp:
-    itemlist = pickle.load(fp)
-print(itemlist[1])
 
 #test_sway.moveHitchAndPoll(truck1, truck2, trailer1, trailer2)
 #test_reverse.reverseAndPoll(truck1, truck2, trailer1, trailer2)
